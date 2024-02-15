@@ -4,13 +4,18 @@ import com.atipera.AtiperaTask.domain.BranchDto;
 import com.atipera.AtiperaTask.domain.OwnerDto;
 import com.atipera.AtiperaTask.domain.RepositoryDto;
 import com.atipera.AtiperaTask.domain.TargetRepositoryView;
+import com.atipera.AtiperaTask.exceptions.ErrorHandlerController;
 import com.atipera.AtiperaTask.mapper.RepositoryMapper;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import lombok.Data;
 import org.apache.http.client.utils.URIBuilder;
+import org.json.JSONObject;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -60,14 +65,15 @@ public class GithubService {
     public Object getRepositoriesOfUser(String username) throws Exception {
         HttpRequest request = createRequestForRepositories(username);
         HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-
+        int responseCode = response.statusCode();
         String body = response.body();
         if (checkIfUserExist(body)) {
             RepositoryDto[] repositoryArrayNode = repositoryReader.readValue(body, RepositoryDto[].class);
 
             return convertToTargetView(username, repositoryArrayNode);
         } else {
-            return "User Not Found";
+            JSONObject object = new JSONObject(body);
+            return ErrorHandlerController.handleNotFoundError(responseCode,object);
         }
     }
 

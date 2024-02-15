@@ -1,6 +1,9 @@
 package com.atipera.AtiperaTask;
 
+import com.atipera.AtiperaTask.exceptions.ErrorHandlerController;
 import com.atipera.AtiperaTask.services.GithubService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,8 +20,7 @@ public class GithubContoller {
     }
 
     @GetMapping
-    public Object getRepositories(@RequestParam String username) throws Exception {
-        return githubService.getRepositoriesOfUser(username);
-
+    public ResponseEntity<Object> getRepositories(@RequestParam String username) throws Exception {
+            return ResponseEntity.ok().body(githubService.getRepositoriesOfUser(username));
     }
 }
