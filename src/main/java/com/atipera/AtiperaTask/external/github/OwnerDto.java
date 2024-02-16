@@ -1,9 +1,8 @@
-package com.atipera.AtiperaTask.domain;
+package com.atipera.AtiperaTask.external.github;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class OwnerDto {
-
     @JsonProperty("login")
     private String ownerName;
 

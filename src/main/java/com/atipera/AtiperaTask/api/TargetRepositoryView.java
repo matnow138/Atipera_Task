@@ -1,4 +1,4 @@
-package com.atipera.AtiperaTask.domain;
+package com.atipera.AtiperaTask.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,13 +1,13 @@
 package com.atipera.AtiperaTask.controller;
 
-import com.atipera.AtiperaTask.GithubContoller;
+import com.atipera.AtiperaTask.api.GithubController;
+import com.atipera.AtiperaTask.api.TargetRepositoryView;
 import com.atipera.AtiperaTask.domain.*;
+import com.atipera.AtiperaTask.external.github.*;
 import com.atipera.AtiperaTask.mapper.RepositoryMapper;
 import com.atipera.AtiperaTask.services.GithubService;
-import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.internal.matchers.Any;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -17,7 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
@@ -29,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(GithubContoller.class)
+@WebMvcTest(GithubController.class)
 @AutoConfigureMockMvc
 public class GithubControllerTestSuite {
 

@@ -1,8 +1,8 @@
 package com.atipera.AtiperaTask.mapper;
 
-import com.atipera.AtiperaTask.domain.BranchDto;
-import com.atipera.AtiperaTask.domain.RepositoryDto;
-import com.atipera.AtiperaTask.domain.TargetRepositoryView;
+import com.atipera.AtiperaTask.external.github.BranchDto;
+import com.atipera.AtiperaTask.external.github.RepositoryDto;
+import com.atipera.AtiperaTask.api.TargetRepositoryView;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

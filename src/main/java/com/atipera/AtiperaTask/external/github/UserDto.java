@@ -1,4 +1,4 @@
-package com.atipera.AtiperaTask.domain;
+package com.atipera.AtiperaTask.external.github;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
