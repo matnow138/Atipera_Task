@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import org.apache.http.client.utils.URIBuilder;
 import org.json.JSONObject;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.net.URI;
@@ -48,7 +49,7 @@ public class GithubClient {
 
     public List<RepositoryDto> getRepositoriesOfUser(String username) throws Exception {
         HttpRequest request = createRequestForRepositories(username);
-        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString()); //za każdym razem new client - czy tak powinno byc?
+        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
         String body = response.body(); //I know about Github pagination - simplified for less code.
         if (checkIfUserExist(body)) {
             return Arrays.asList(repositoryReader.readValue(body, RepositoryDto[].class));
@@ -56,7 +57,9 @@ public class GithubClient {
 
         }
         JSONObject object = new JSONObject(body);
-        throw new UserNotFoundException(response.statusCode(), object);
+        UserNotFoundDto userNotFoundDto=new UserNotFoundDto(HttpStatus.NOT_FOUND.value(), object.getString("message"));
+        throw new UserNotFoundException(userNotFoundDto);
+
     }
 
     public List<BranchDto> getBranches(String username, String repositoryName) throws Exception {
