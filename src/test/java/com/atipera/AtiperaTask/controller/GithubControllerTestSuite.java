@@ -2,7 +2,6 @@ package com.atipera.AtiperaTask.controller;
 
 import com.atipera.AtiperaTask.api.GithubController;
 import com.atipera.AtiperaTask.api.TargetRepositoryView;
-import com.atipera.AtiperaTask.domain.*;
 import com.atipera.AtiperaTask.external.github.*;
 import com.atipera.AtiperaTask.mapper.RepositoryMapper;
 import com.atipera.AtiperaTask.services.GithubService;
@@ -59,15 +58,15 @@ public class GithubControllerTestSuite {
         branchDtoList.add(branchDto);
 
         TargetRepositoryView targetRepositoryView = repositoryMapper1.mapToTargetRepository(repositoryDto, branchDtoList);
-        given(githubService.getRepositoriesOfUser(anyString())).willReturn(targetRepositoryView);
+        given(githubService.getRepositoriesOfUser(anyString())).willReturn(List.of(targetRepositoryView));
 
         //When & Then
         mockMvc.perform(get("/v1/")
                     .contentType(MediaType.APPLICATION_JSON)
                         .param("username","test"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.repositoryName", is("RepositoryName")))
-                .andExpect(jsonPath("$.owner", is("testOwner")));
+                .andExpect(jsonPath("$[0].repositoryName", is("RepositoryName")))
+                .andExpect(jsonPath("$[0].owner", is("testOwner")));
 
 
     }
