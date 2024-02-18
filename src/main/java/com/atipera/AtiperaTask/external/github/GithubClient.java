@@ -23,7 +23,7 @@ public class GithubClient {
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     private final ObjectReader repositoryReader = mapper.readerForArrayOf(RepositoryDto.class);
 
-    public HttpRequest createRequestForRepositories(String username) throws URISyntaxException { //public tylko te musisz, reszta private
+    public HttpRequest createRequestForRepositories(String username) throws URISyntaxException {
         return HttpRequest.newBuilder()
                 .uri(constructUriForRepositories(username))
                 .build();
