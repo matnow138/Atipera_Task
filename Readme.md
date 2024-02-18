@@ -23,7 +23,8 @@ Atipera Task is a project that utilizes the GitHub API to retrieve a list of rep
 3.	Send a GET request to the following endpoint: localhost:8080/v1 using the desired username as the key.
 
 ``` 
-curl --location --request GET 'http://localhost:8080/v1/?username=matnow138'
+curl --location --request GET 'http://localhost:8080/v1/?username=matnow138' \
+--header 'Accept: application/json'
 ```
 
 ## Examples
